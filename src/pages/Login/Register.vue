@@ -3,7 +3,7 @@
     <img src="../../assets/images/public_img/close.png" class="isClose" @click="$router.push('/')">
     <div class="loginMain">
       <div class="loginTit">
-        登录
+        注册
       </div>
       <div class="mainWrap">
         <div class="inputShow">
@@ -16,11 +16,11 @@
         </div>
         <div class="loginBtn">
           <p @click="sub">
-            登录
+            注册
           </p>
         </div>
-        <div class="register" @click="$router.push('/register')">
-          手机注册
+        <div class="register" @click="$router.push('/login')">
+          登录
         </div>
       </div>
     </div>
@@ -36,6 +36,7 @@
         post:{
           user:'',
           password:'',
+          reg:1
         }
       }
     },

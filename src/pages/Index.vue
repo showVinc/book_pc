@@ -1,50 +1,63 @@
 <template>
   <div class="home">
     <head-public></head-public>
-    <nav-public type="0"></nav-public>
     <div class="publicMain">
-      <div class="hotArticleWrap">
-        <div class="hotWrapLeft">
-          <div class="hotLeftTit">
-            热门推荐
+      <div class="banner">
+        <mt-swipe>
+          <mt-swipe-item v-for="item,index in banners" :key="index">
+            <img :src="item.cover_pic">
+          </mt-swipe-item>
+        </mt-swipe>
+      </div>
+      <div class="homeNav">
+        <div class="search">
+          <img src="../assets/images/public_img/search.png">
+          <input type="text" placeholder="搜索点什么">
+        </div>
+        <nav-public type="0"></nav-public>
+      </div>
+      <div class="ad">
+        <img src="../assets/images/identify/1.png">
+      </div>
+      <div class="novelMain">
+        <div class="novelWrap">
+          <div class="novelTitle">
+            热门
           </div>
-          <ul class="hotArticle">
+          <ul class="listMain">
             <li v-for="item in lists.list" @click="novelClick(item)">
-              <div class="hotLeft">
-                <img :src="item.cover_pic">
+              <img :src="item.cover_pic">
+              <div>
+                {{item.title}}
               </div>
-              <div class="hotRight">
-                <div>
-                  {{item.title}}
-                </div>
-                <p>
-                  {{item.summary}}
-                </p>
-                <span><img :src="item.author_src">{{item.author}}</span>
-              </div>
+              <span>{{item.author}}</span>
             </li>
           </ul>
         </div>
-        <div class="hotWrapRight">
-          <div class="hotLeftTit">
-            笔趣阁
+        <div class="novelWrap">
+          <div class="novelTitle">
+            热门
           </div>
-          <ul class="hotRecommend">
-            <li v-for="item in hotList">
-              {{item.catName}}
+          <ul class="listMain">
+            <li v-for="item in lists.list">
+              <img :src="item.cover_pic">
+              <div>
+                {{item.title}}
+              </div>
+              <span>{{item.author}}</span>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <foot-public></foot-public>
+    <!--<foot-public></foot-public>-->
   </div>
 </template>
 <script>
-
   export default {
     data() {
       return {
+        banners:[],
         hotList:[{
           "catId": 30020,
           "catName": "现代言情",
@@ -120,91 +133,88 @@
       }).catch(err=>{
         console.log(err)
       })
+
+      this.$http.get(`${process.env.API.API}/banner`).then(res=>{
+        if(res.data.code==0){
+          this.banners = res.data.data;
+        }
+      }).catch(err=>{
+        console.log(err)
+      })
     },
     //获取底部组件
     components: {}
   }
 </script>
 <style lang="less" scoped type="text/less">
-  .hotArticleWrap{
-    display: flex;
-    justify-content: space-between;
-    .hotLeftTit{
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #f2f2f2;
-      padding-bottom: 15px;
-    }
-    .hotWrapLeft{
-      width: calc(~'100% - 230px');
-      padding-right: 50px;
-      box-sizing: border-box;
-      .hotArticle{
+  .publicMain{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    .homeNav{
+      background: #fff;
+      padding: 10px 0 0;
+      .search{
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+        border-radius: 25px;
+        margin: 0 15px;
+        height: 32px;
+        background: #f2f2f2;
+        input{
+          background: #f2f2f2;
+          width: 100%;
+          height: 100%;
+          padding-left: 10px;
+          box-sizing: border-box;
+        }
+      }
+    }
+    .ad{
+      padding: 15px;
+      img{
         width: 100%;
-        li{
+        height: 32px;
+        object-fit: cover;
+      }
+    }
+    .novelMain{
+      .novelWrap{
+        background: #fff;
+        margin-bottom: 15px;
+        .novelTitle{
+          font-size: 24px;
+          padding: 15px 15px 0;
+        }
+        .listMain{
           display: flex;
-          width: 32%;
-          .hotLeft{
-            width: 40%;
-            img{
-              width: 100%;
-              min-width: 80px;
-              height: 96px;
-              object-fit: cover;
-            }
-          }
-          .hotRight{
+          padding: 15px;
+          li{
+            width: 25%;
+            margin-right: 15px;
             display: flex;
             flex-direction: column;
-            /*width: 144px;*/
-            width: 60%;
-
-            padding-left: 15px;
+            /*align-items: center;*/
             div{
+              font-size: 14px;
               width: 100%;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
-              font-size: 16px;
-            }
-            p{
-              font-size: 12px;
-              margin: 10px 0;
-              color: #666;
+              margin: 5px 0;
             }
             span{
-              display: flex;
-              align-items: center;
-              font-size: 12px;
-              color: #666;
-              img{
-                width: 20px;
-                height: 20px;
-                margin-right: 5px;
-              }
+              width: 100%;
+              font-size: 14px;
+              color: #999;
+            }
+            img{
+              width: 100%;
+              height: 96px;
             }
           }
         }
       }
     }
-    .hotWrapRight{
-      width: 230px;
-      .hotRecommend{
-        display: flex;
-        flex-direction: column;
-        li{
-          height: 40px;
-          display: flex;
-          align-items: center;
-          font-size: 14px;
-          color: #333;
-        }
-      }
-    }
   }
-</style>
-<style lang="less">
 </style>

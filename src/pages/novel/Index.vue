@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <head-public></head-public>
     <div class="publicMain">
       <div>
         {{novelInfo.title}}
@@ -8,11 +7,11 @@
       <p>
         {{novelInfo.content}}
       </p>
-      <div @click="">
-        demo
+      <div @click="likeClick" style="background: #333;color: #fff;margin-top: 30px">
+        {{novelInfo.n_like}}
+        <p>点赞按钮</p>
       </div>
     </div>
-    <foot-public></foot-public>
   </div>
 </template>
 <script>
@@ -23,6 +22,15 @@
       }
     },
     methods: {
+      likeClick(){
+        this.$http.post(`${process.env.API.API}/novel`,{like:1,id:this.novelInfo.ID}).then(res=>{
+          if(res.data.code==0){
+            this.novelInfo.n_like = this.novelInfo.n_like+1
+          }
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
     },
     created() {
     },

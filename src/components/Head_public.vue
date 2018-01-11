@@ -4,7 +4,9 @@
       logo
     </div>
     <div class="userTop">
-      <img src="../assets/images/user/user.png">
+      <div @click="$router.push('/login')">
+        <img src="../assets/images/user/user.png">
+      </div>
     </div>
   </div>
 </template>
