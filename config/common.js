@@ -13,10 +13,10 @@ switch(branch) {
 module.exports = {
   prov_url: {
     // 测试
-    FRIENDS: `"${http_url}"`,
+    URL: `"${http_url}"`,
   },
   dev_url: {
-    FRIENDS: `"${dev_url}"`,
+    URL: `"${dev_url}"`,
   },
   prov_api: {
     API: `"${http_api}"`,

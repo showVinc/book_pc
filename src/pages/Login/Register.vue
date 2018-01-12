@@ -56,7 +56,9 @@
         }else{
           self.$http.post(`${process.env.API.API}/login`,self.post).then(res=>{
             if(res.data.code==0){
-
+              self.$toast(res.data.msg);
+            }else{
+              self.$toast(res.data.msg);
             }
           }).catch(err=>{
             console.log(err)

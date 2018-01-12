@@ -124,6 +124,10 @@
       }
     },
     created() {
+      window.scrollTo(0,0)
+      if( this.$route&&this.$route.params.isOne==1){
+        location.reload()
+      }
     },
     mounted(){
       this.$http.get(`${process.env.API.API}/novellist?novel=hot&random=${Math.random()}`).then(res=>{

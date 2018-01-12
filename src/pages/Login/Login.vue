@@ -55,13 +55,23 @@
         }else{
           self.$http.post(`${process.env.API.API}/login`,self.post).then(res=>{
             if(res.data.code==0){
-
+              self.$toast(res.data.msg)
+              localStorage.setItem('userInfo',JSON.stringify(res.data.data))
+              self.$store.state.userInfo = JSON.stringify(res.data.data)
+              self.$router.push({name:'Index',params:{isOne:1}})
+            }else{
+              self.$toast(res.data.msg)
             }
           }).catch(err=>{
             console.log(err)
           })
         }
       }
+    },
+    created(){
+      let self = this
+      self.$store.state.userInfo = {}
+      localStorage.removeItem('userInfo')
     },
     mounted(){
       localStorage.removeItem('userId')

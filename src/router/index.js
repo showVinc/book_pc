@@ -27,5 +27,11 @@ export default new Router({
       name: 'Novel',
       component: resolve=>require(['@/pages/Novel/Index'],resolve)
     },
+    //用户资料
+    {
+      path: '/user/setting',
+      name: 'Setting',
+      component: resolve=>require(['@/pages/User/Setting'],resolve)
+    },
   ]
 })

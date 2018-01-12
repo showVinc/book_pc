@@ -12,6 +12,10 @@
     },
     created(){
       let self = this
+      let userInfo = localStorage.getItem('userInfo')
+      if(userInfo){
+        self.$store.state.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      }
     }
   }
 </script>
